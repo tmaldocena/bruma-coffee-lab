@@ -24,10 +24,14 @@ export default function SplashScreen({ isReady = true, minDurationMs = 1400 }) {
   useEffect(() => {
     if (minTimeElapsed && isReady && !exiting) {
       setExiting(true);
-      const t = setTimeout(() => setHidden(true), 450);
-      return () => clearTimeout(t);
     }
   }, [minTimeElapsed, isReady, exiting]);
+
+  useEffect(() => {
+    if (!exiting) return;
+    const t = setTimeout(() => setHidden(true), 450);
+    return () => clearTimeout(t);
+  }, [exiting]);
 
   if (hidden) return null;
 
@@ -47,8 +51,8 @@ export default function SplashScreen({ isReady = true, minDurationMs = 1400 }) {
       <BlindReveal
         src="/illustrations/corner-chef-cake.png"
         alt=""
-        width={240}
-        height={265}
+        width={275}
+        height={304}
         slats={8}
         delayStart={80}
         style={{ position: 'absolute', top: 0, right: 0 }}
@@ -57,8 +61,8 @@ export default function SplashScreen({ isReady = true, minDurationMs = 1400 }) {
       <BlindReveal
         src="/illustrations/corner-cup.png"
         alt=""
-        width={260}
-        height={244}
+        width={300}
+        height={282}
         slats={8}
         delayStart={200}
         style={{ position: 'absolute', bottom: 0, left: 0 }}

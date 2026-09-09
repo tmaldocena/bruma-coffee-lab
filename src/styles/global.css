@@ -60,3 +60,25 @@
 .splash-exit {
   animation: splash-fade-out 420ms ease-in forwards;
 }
+
+/* En pantallas bajas las esquinas se encogen hacia su propio vértice
+   para que nunca tapan el logo central. */
+@media (max-height: 700px) {
+  div[aria-hidden="true"]:has(img[src*="corner-chef-cake"]) {
+    transform: scale(0.78);
+    transform-origin: top right;
+  }
+  div[aria-hidden="true"]:has(img[src*="corner-cup"]) {
+    transform: scale(0.78);
+    transform-origin: bottom left;
+  }
+}
+
+@media (max-height: 600px) {
+  div[aria-hidden="true"]:has(img[src*="corner-chef-cake"]) {
+    transform: scale(0.6);
+  }
+  div[aria-hidden="true"]:has(img[src*="corner-cup"]) {
+    transform: scale(0.6);
+  }
+}
