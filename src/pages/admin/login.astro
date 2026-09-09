@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LoginForm from '../../components/admin/LoginForm.jsx';
+---
+<BaseLayout title="Ingresar — Panel Bruma">
+  <main class="min-h-screen flex items-center justify-center px-4">
+    <div class="w-full max-w-sm bg-paper-card border border-paper-border rounded-xl p-6">
+      <h1 class="font-display font-extrabold text-xl text-espresso mb-1">Panel Bruma</h1>
+      <p class="text-sm text-muted-text mb-5">Ingresá la contraseña del panel para editar la carta.</p>
+      <LoginForm client:load />
+      <a
+        href="/"
+        class="mt-5 block text-center text-xs font-bold text-muted-text hover:text-espresso transition-colors"
+      >
+        ← Volver a la carta
+      </a>
+    </div>
+  </main>
+</BaseLayout>

@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdminGuard from '../../components/admin/AdminGuard.jsx';
+import { getVenue } from '../../lib/supabase.js';
+
+const venue = await getVenue();
+---
+<BaseLayout title="Panel — Bruma Coffee Lab">
+  <main class="max-w-3xl mx-auto px-4 py-8">
+    <AdminGuard client:load venueId={venue.id} />
+  </main>
+</BaseLayout>

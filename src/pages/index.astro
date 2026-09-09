@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MenuExplorer from '../components/MenuExplorer.jsx';
+import SplashScreen from '../components/SplashScreen.jsx';
+import { getVenue, getMenu } from '../lib/supabase.js';
+
+const venue = await getVenue();
+const { categories, promoBlocks } = await getMenu(venue.id);
+---
+<BaseLayout title={`${venue.name} — Carta`}>
+  <SplashScreen client:load minDurationMs={1400} />
+
+  <header class="sticky top-0 z-10 bg-paper/95 backdrop-blur-md border-b border-paper-border px-4 py-4">
+    <div class="max-w-2xl mx-auto flex items-center gap-3">
+      <img
+        src="/logo.svg"
+        alt={venue.name}
+        class="w-10 h-10 shrink-0"
+        width={40}
+        height={38}
+      />
+      <div class="flex flex-col">
+        <span class="font-display font-black tracking-wide text-lg leading-tight">{venue.name}</span>
+        {venue.instagram && (
+          <span class="text-[11px] uppercase tracking-widest text-caramel">{venue.instagram}</span>
+        )}
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-2xl mx-auto px-4 py-6">
+    <MenuExplorer
+      client:load
+      categories={categories}
+      promoBlocks={promoBlocks}
+      currencyFormat={venue.currency_format}
+    />
+  </main>
+
+  <footer class="max-w-2xl mx-auto px-4 py-10 text-center text-xs text-muted-text uppercase tracking-widest">
+    <p>{venue.name} · Carta digital</p>
+    {venue.instagram && (
+      <a
+        href={`https://www.instagram.com/${venue.instagram.replace(/^@/, '')}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-3 inline-block font-display font-bold text-sm normal-case text-caramel hover:text-caramel-dark transition-colors"
+      >
+        ¡Seguinos en Instagram!
+      </a>
+    )}
+    <a
+      href="/admin"
+      class="mt-3 block text-[10px] tracking-widest text-muted-text/70 hover:text-caramel transition-colors"
+    >
+      Admin
+    </a>
+    <p class="mt-4 normal-case tracking-normal text-[11px] text-muted-text/80">
+      creado con <span aria-hidden="true">✨</span> por
+      <a
+        href="https://maguitostudio.com.ar"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-display font-bold text-caramel hover:text-caramel-dark transition-colors"
+      >
+        Maguito Studio
+      </a>
+    </p>
+  </footer>
+</BaseLayout>
